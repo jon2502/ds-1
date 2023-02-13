@@ -5,20 +5,29 @@ var decryptText = document.getElementById('decryptText');
 var decryptButton = document.getElementById('decryptButton')
 var decryptPrint = document.getElementById('decryptPrint')
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-var result = "";
+var newString = "";
 console.log(alphabet)
 
-encryptButton.addEventListener('click', encrypt)
+encryptButton.addEventListener('click', encrypt(encryptText.value, 3))
 
-function encrypt () {
-    
+function encrypt (str, num) {
+    var num = num % 26
+    const lowerCaseString = str.toLowerCase();
     for (let i = 0; i<encryptText.length; i++ ){
-        var arrayEncrypt = Array.from(encryptText)
-        arrayEncrypt.split('')
+        const currentLetter = lowerCaseString[i];
+        if (currentLetter === ''){
+            newsting += currentLetter;
+            continue
+        }
+        const currentIndex = alphabet.indexOf(currentLetter)
+        let newIndex = currentIndex + num;
+        if (newIndex > 25) newIndex = newIndex - 26;
+        if (newIndex < 0) newIndex = newIndex + 26;
+        if (str[i] === str[i].toUpperCase()) {
+            newString += alphabet[newIndex].toUpperCase();
+        } else newString += alphabet[newIndex];
     }
-    console.log(arrayEncrypt.split(''))
-    result = encryptText.value
-    encryptPrint.innerHTML = `${result}`
+    return newString
 }
 
 decryptButton.addEventListener('click', decrypt)
